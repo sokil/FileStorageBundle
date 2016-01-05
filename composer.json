@@ -1,6 +1,6 @@
 {
   "name": "sokil/file-storage-bundle",
-  "license": "proprietary",
+  "license": "MIT",
   "type": "project",
   "autoload": {
     "psr-4": {
