@@ -1,0 +1,14 @@
+{
+  "name": "sokil/file-storage-bundle",
+  "license": "proprietary",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Sokil\\FileStorageBundle": "src/",
+    }
+  },
+  "require": {
+    "knplabs/knp-gaufrette-bundle": "0.2.*",
+    "sokil/php-upload": "0.*"
+  }
+}
