@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Attachment
  *
- * @ORM\Table(name="attachments")
+ * @ORM\Table(name="files")
  * @ORM\Entity
  */
 class File
@@ -31,7 +31,7 @@ class File
     /**
      * @var string
      *
-     * @ORM\Column(name="filesize", type="string", length=255)
+     * @ORM\Column(name="filesize", type="bigint", options={"unsigned"=true})
      */
     private $filesize;
 
