@@ -1,1 +1,3 @@
 services:
+  file_storage.handler_factory:
+    class: Sokil\Upload\HandlerFactory

@@ -1,3 +1,0 @@
-file_storage:
-    resource: @FileStorageBundle/Controller/
-    type:     annotation
