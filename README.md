@@ -2,6 +2,8 @@
 
 ## Useage
 
+Simple uploading:
+
 ```php
 <?php
 // create handler in factory
