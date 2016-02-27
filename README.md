@@ -22,4 +22,5 @@ $filesystem = new \Gaufrette\Filesystem(new \Gaufrette\Adapter\Local(
 $uploader->move($filesystem);
 ```
 
-Read abount configuring Gaufrette filesystems at https://github.com/KnpLabs/Gaufrette.
+Read about Gaufrette et https://github.com/KnpLabs/Gaufrette
+Read abount configuring Gaufrette filesystems in Symfony at https://github.com/KnpLabs/KnpGaufretteBundle.
