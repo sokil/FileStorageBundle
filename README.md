@@ -53,7 +53,7 @@ $uploader = $this
 
 $attachmentFilesystem = $this
     ->get('knp_gaufrette.filesystem_map')
-    ->get($this->getParameter('task_stock.attachments_filesystem'));
+    ->get($this->getParameter('acme.attachments_filesystem'));
 
 $uploader->move($attachmentFilesystem);
 
