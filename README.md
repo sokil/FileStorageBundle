@@ -2,7 +2,8 @@
 
 ## Cofiguration
 
-* Read about Gaufrette et https://github.com/KnpLabs/Gaufrette.
+* Read more about uploading handler at https://github.com/sokil/php-upload
+* Read about Gaufrette at https://github.com/KnpLabs/Gaufrette.
 * Read abount configuring Gaufrette filesystems in Symfony at https://github.com/KnpLabs/KnpGaufretteBundle.
 
 First define attribute in extension of your bundle:
