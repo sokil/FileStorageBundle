@@ -20,5 +20,6 @@ $filesystem = new \Gaufrette\Filesystem(new \Gaufrette\Adapter\Local(
 
 // upload
 $uploader->move($filesystem);
-
 ```
+
+Read abount configuring Gaufrette filesystems at https://github.com/KnpLabs/Gaufrette.
