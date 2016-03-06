@@ -1,3 +1,20 @@
 services:
-  file_storage.handler_factory:
+  file_storage.upload_handler_factory:
     class: Sokil\Upload\HandlerFactory
+
+  file_storage.default_upload_handler:
+    class: Sokil\Upload\Handler
+    factory:
+      - @file_storage.upload_handler_factory
+      - createUploadHandler
+
+  file_storage.default_uploaded_file_builder:
+    class: Sokil\FileStorageBundle\FileBuilder\UploadedFileBuilder
+    arguments:
+      - @file_storage.default_upload_handler
+
+  file_storage.default_file_writer:
+    class: Sokil\FileStorageBundle\FileWriter
+    arguments:
+      - @doctrine.orm.default_entity_manager
+      - @knp_gaufrette.filesystem_map

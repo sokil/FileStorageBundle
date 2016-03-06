@@ -5,7 +5,7 @@ namespace Sokil\FileStorageBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Attachment
+ * File
  *
  * @ORM\Table(name="files")
  * @ORM\Entity
@@ -24,16 +24,16 @@ class File
     /**
      * @var string
      *
-     * @ORM\Column(name="filename", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $filename;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="filesize", type="bigint", options={"unsigned"=true})
+     * @ORM\Column(name="size", type="bigint", options={"unsigned"=true})
      */
-    private $filesize;
+    private $size;
 
     /**
      * @var string
@@ -57,6 +57,13 @@ class File
     private $createdAt;
 
     /**
+     * @var name of filesystem where file stored
+     *
+     * @ORM\Column(name="mime", type="string", length=255)
+     */
+    private $filesystem;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -69,12 +76,12 @@ class File
     /**
      * Set filename
      *
-     * @param string $filename
-     * @return Attachment
+     * @param string $name
+     * @return File
      */
-    public function setFilename($filename)
+    public function setName($name)
     {
-        $this->filename = $filename;
+        $this->name = $name;
 
         return $this;
     }
@@ -84,20 +91,66 @@ class File
      *
      * @return string 
      */
-    public function getFilename()
+    public function getName()
     {
-        return $this->filename;
+        return $this->name;
+    }
+
+    public function getSystemDir()
+    {
+        if (!$this->id) {
+            throw new \RuntimeException('File must be registered in db before generating system directory');
+        }
+
+        $idChunks = str_split(
+            strpad($this->id, 6, '0', STR_PAD_LEFT),
+            2
+        );
+
+        return $idChunks[3] . '/' . $idChunks[2] . '/' . $idChunks[1];
+    }
+
+    public function getSystemPath()
+    {
+        $systemBasename = $this->id;
+
+        $extension = $this->getExtension();
+        if ($extension) {
+            $systemBasename += '.' . $extension;
+        }
+        return $this->getSystemDir() . '/' . $systemBasename;
+    }
+
+    /**
+     * Get extension
+     *
+     * @return string
+     */
+    public function getExtension()
+    {
+        return pathinfo($this->name, PATHINFO_EXTENSION);
+    }
+
+    public function setFilesystem($filesystem)
+    {
+        $this->filesystem = $filesystem;
+        return $this;
+    }
+
+    public function getFilesystem()
+    {
+        return$this->filesystem;
     }
 
     /**
      * Set filesize
      *
-     * @param string $filesize
-     * @return Attachment
+     * @param string $size
+     * @return File
      */
-    public function setFilesize($filesize)
+    public function setSize($size)
     {
-        $this->filesize = $filesize;
+        $this->size = $size;
 
         return $this;
     }
@@ -107,16 +160,16 @@ class File
      *
      * @return string 
      */
-    public function getFilesize()
+    public function getSize()
     {
-        return $this->filesize;
+        return $this->size;
     }
 
     /**
      * Set hash
      *
      * @param string $hash
-     * @return Attachment
+     * @return File
      */
     public function setHash($hash)
     {
@@ -139,7 +192,7 @@ class File
      * Set mime
      *
      * @param string $mime
-     * @return Attachment
+     * @return File
      */
     public function setMime($mime)
     {
@@ -162,7 +215,7 @@ class File
      * Set date of creation
      *
      * @param \DateTime $dateTime
-     * @return Attachment
+     * @return File
      */
     public function setCreatedAt(\DateTime $dateTime)
     {
