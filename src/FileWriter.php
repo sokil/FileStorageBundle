@@ -6,6 +6,7 @@ use Knp\Bundle\GaufretteBundle\FilesystemMap;
 use Sokil\FileStorageBundle\FileBuilder\AbstractFileBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Sokil\FileStorageBundle\Entity\File;
+use Sokil\FileStorageBundle\PathStrategy\PathStrategyInterface;
 
 class FileWriter
 {
@@ -19,12 +20,16 @@ class FileWriter
      */
     protected $filesystemMap;
 
+    protected $pathStrategy;
+
     public function __construct(
         EntityManagerInterface $entityManager,
-        FilesystemMap $filesystemMap
+        FilesystemMap $filesystemMap,
+        PathStrategyInterface $pathStrategy = null
     ) {
         $this->entityManager = $entityManager;
         $this->filesystemMap = $filesystemMap;
+        $this->pathStrategy = $pathStrategy;
     }
 
     /**
@@ -37,7 +42,7 @@ class FileWriter
         $filesystem = $this->filesystemMap->get($filesystemName);
 
         // create file
-        $file = $fileBuilder->getFile();
+        $file = $fileBuilder->buildFileEntity();
         $file->setFilesystem($filesystemName);
 
         // register uploaded file
@@ -45,10 +50,14 @@ class FileWriter
         $this->entityManager->flush();
 
         // get target filename
-        $targetPath = $file->getSystemDir() . '/' . $file->getId();
-        $extension = $file->getExtension();
-        if ($extension) {
-            $targetPath .= '.' . $extension;
+        if ($this->pathStrategy) {
+            $targetPath = $this->pathStrategy->getPath($file);
+        } else {
+            $targetPath = $file->getId();
+            $extension = $file->getExtension();
+            if ($extension) {
+                $targetPath .= '.' . $extension;
+            }
         }
 
         // move file to target storage

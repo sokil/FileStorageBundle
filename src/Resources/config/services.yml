@@ -13,8 +13,12 @@ services:
     arguments:
       - @file_storage.default_upload_handler
 
+  file_storage.path_strategy.chunk:
+    class: Sokil\FileStorageBundle\PathStrategy\ChunkPathStrategy
+
   file_storage.default_file_writer:
     class: Sokil\FileStorageBundle\FileWriter
     arguments:
       - @doctrine.orm.default_entity_manager
       - @knp_gaufrette.filesystem_map
+      - @file_storage.path_strategy.chunk

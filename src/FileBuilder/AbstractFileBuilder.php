@@ -9,7 +9,7 @@ abstract class AbstractFileBuilder
     /**
      * @return File
      */
-    abstract public function getFile();
+    abstract public function buildFileEntity();
 
     /**
      * @return mixed

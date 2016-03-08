@@ -96,31 +96,6 @@ class File
         return $this->name;
     }
 
-    public function getSystemDir()
-    {
-        if (!$this->id) {
-            throw new \RuntimeException('File must be registered in db before generating system directory');
-        }
-
-        $idChunks = str_split(
-            strpad($this->id, 6, '0', STR_PAD_LEFT),
-            2
-        );
-
-        return $idChunks[3] . '/' . $idChunks[2] . '/' . $idChunks[1];
-    }
-
-    public function getSystemPath()
-    {
-        $systemBasename = $this->id;
-
-        $extension = $this->getExtension();
-        if ($extension) {
-            $systemBasename += '.' . $extension;
-        }
-        return $this->getSystemDir() . '/' . $systemBasename;
-    }
-
     /**
      * Get extension
      *
@@ -128,7 +103,7 @@ class File
      */
     public function getExtension()
     {
-        return pathinfo($this->name, PATHINFO_EXTENSION);
+        return strtolower(pathinfo($this->name, PATHINFO_EXTENSION));
     }
 
     public function setFilesystem($filesystem)

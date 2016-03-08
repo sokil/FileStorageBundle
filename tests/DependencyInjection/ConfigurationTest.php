@@ -3,6 +3,7 @@
 namespace Sokil\FileStorageBundle\DependencyInjection;
 
 use Knp\Bundle\GaufretteBundle\DependencyInjection\KnpGaufretteExtension;
+use Sokil\FileStorageBundle\FileBuilder\UploadedFileBuilder;
 use Sokil\FileStorageBundle\FileWriter;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Sokil\Upload\HandlerFactory;
@@ -61,9 +62,15 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Handler::class, $handler);
     }
 
-    public function testWrite()
+    public function testGetDefultFileWriter()
     {
         $fileWriter = $this->containerBuilder->get('file_storage.default_file_writer');
         $this->assertInstanceOf(FileWriter::class, $fileWriter);
+    }
+
+    public function testGetDefaultUploadedFileBuilder()
+    {
+        $fileBuilder = $this->containerBuilder->get('file_storage.default_uploaded_file_builder');
+        $this->assertInstanceOf(UploadedFileBuilder::class, $fileBuilder);
     }
 }

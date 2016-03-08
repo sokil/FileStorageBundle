@@ -19,7 +19,7 @@ class UploadedFileBuilder extends AbstractFileBuilder
         return $this;
     }
 
-    public function getFile()
+    public function buildFileEntity()
     {
         $sourceFile = $this->uploadHandler->getFile();
         
