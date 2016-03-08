@@ -10,12 +10,16 @@ class ChunkPathStrategy implements PathStrategyInterface
 
     private $chunkSize;
 
+    private $preserveExtension;
+
     public function __construct(
         $chunksNumber = 2,
-        $chunkSize = 3
+        $chunkSize = 3,
+        $preserveExtension = false
     ) {
         $this->chunksNumber = $chunksNumber;
         $this->chunkSize = $chunkSize;
+        $this->preserveExtension = $preserveExtension;
     }
 
     private function getDir(File $file)
@@ -39,13 +43,15 @@ class ChunkPathStrategy implements PathStrategyInterface
             throw new \RuntimeException('File must be persisted');
         }
 
-        $systemBasename = $file->getId();
+        $basename = $file->getId();
 
-        $extension = $file->getExtension();
-        if ($extension) {
-            $systemBasename += '.' . $extension;
+        if ($this->preserveExtension) {
+            $extension = $file->getExtension();
+            if ($extension) {
+                $basename .= '.' . $extension;
+            }
         }
 
-        return $this->getDir($file) . '/' . $systemBasename;
+        return $this->getDir($file) . '/' . $basename;
     }
 }
