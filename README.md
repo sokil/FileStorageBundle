@@ -1,5 +1,7 @@
 # FileStorageBundle
 
+[![Build Status](https://travis-ci.org/sokil/FileStorageBundle.svg?branch=master)](https://travis-ci.org/sokil/FileStorageBundle)
+
 ## Cofiguration
 
 * Read more about uploading handler at https://github.com/sokil/php-upload
