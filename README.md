@@ -67,6 +67,7 @@ $attachmentFilesystem = $this
     ->get($this->getParameter('acme.attachments_filesystem'));
 
 $uploader->move($attachmentFilesystem);
+```
 
 ### Uploader
 
@@ -138,6 +139,7 @@ arguments:
 ```
 
 In controller you may write file to external filesystem
+
 ```php
 <?php
 
@@ -147,5 +149,5 @@ $this
         $this->get('acme.attachment_file_builder'),
         'acme.attachments_filesystem'
     );
-````
+```
 
