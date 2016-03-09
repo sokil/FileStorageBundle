@@ -53,24 +53,24 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function testGetHandlerFactory()
     {
         $handlerFactory = $this->containerBuilder->get('file_storage.upload_handler_factory');
-        $this->assertInstanceOf(HandlerFactory::class, $handlerFactory);
+        $this->assertInstanceOf('\Sokil\Upload\HandlerFactory', $handlerFactory);
     }
 
     public function testGetHandler()
     {
         $handler = $this->containerBuilder->get('file_storage.upload_handler_factory')->createUploadHandler();
-        $this->assertInstanceOf(Handler::class, $handler);
+        $this->assertInstanceOf('\Sokil\Upload\Handler', $handler);
     }
 
     public function testGetDefultFileWriter()
     {
         $fileWriter = $this->containerBuilder->get('file_storage.default_file_writer');
-        $this->assertInstanceOf(FileWriter::class, $fileWriter);
+        $this->assertInstanceOf('\Sokil\FileStorageBundle\FileWriter', $fileWriter);
     }
 
     public function testGetDefaultUploadedFileBuilder()
     {
         $fileBuilder = $this->containerBuilder->get('file_storage.default_uploaded_file_builder');
-        $this->assertInstanceOf(UploadedFileBuilder::class, $fileBuilder);
+        $this->assertInstanceOf('\Sokil\FileStorageBundle\FileBuilder\UploadedFileBuilder', $fileBuilder);
     }
 }
