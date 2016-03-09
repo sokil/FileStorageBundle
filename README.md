@@ -1,6 +1,7 @@
 # FileStorageBundle
 
 Upload handling, registration of uploads to database, moving files to external filesystem.
+
 [![Build Status](https://travis-ci.org/sokil/FileStorageBundle.svg?branch=master)](https://travis-ci.org/sokil/FileStorageBundle)
 
 ## Configuration
