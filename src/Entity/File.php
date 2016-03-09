@@ -59,7 +59,7 @@ class File
     /**
      * @var name of filesystem where file stored
      *
-     * @ORM\Column(name="mime", type="string", length=255)
+     * @ORM\Column(name="filesystem", type="string", length=255)
      */
     private $filesystem;
 
