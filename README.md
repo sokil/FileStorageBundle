@@ -23,7 +23,7 @@ knp_gaufrette:
             adapter: acme.attachments_adapter
 ```
 
-You need tnet pass this filesystem name to your code. For example define parameter in extension of your bundle:
+You need then pass this filesystem name to your code. For example define parameter in extension of your bundle:
 
 ```php
 <?php
