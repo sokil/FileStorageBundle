@@ -20,8 +20,10 @@ knp_gaufrette:
     filesystems:
         acme.attachments_filesystem:
             adapter: acme.attachments_adapter
+```
 
 You need tnet pass this filesystem name to your code. For example define parameter in extension of your bundle:
+
 ```php
 <?php
 namespace AcmeBundle\DependencyInjection;
