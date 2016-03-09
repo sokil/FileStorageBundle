@@ -5,13 +5,13 @@ services:
   file_storage.default_upload_handler:
     class: Sokil\Upload\Handler
     factory:
-      - @file_storage.upload_handler_factory
+      - '@file_storage.upload_handler_factory'
       - createUploadHandler
 
   file_storage.default_uploaded_file_builder:
     class: Sokil\FileStorageBundle\FileBuilder\UploadedFileBuilder
     arguments:
-      - @file_storage.default_upload_handler
+      - '@file_storage.default_upload_handler'
 
   file_storage.path_strategy.chunk:
     class: Sokil\FileStorageBundle\PathStrategy\ChunkPathStrategy
@@ -19,6 +19,6 @@ services:
   file_storage.default_file_writer:
     class: Sokil\FileStorageBundle\FileWriter
     arguments:
-      - @doctrine.orm.default_entity_manager
-      - @knp_gaufrette.filesystem_map
-      - @file_storage.path_strategy.chunk
+      - '@doctrine.orm.default_entity_manager'
+      - '@knp_gaufrette.filesystem_map'
+      - '@file_storage.path_strategy.chunk'
