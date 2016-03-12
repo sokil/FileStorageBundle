@@ -7,8 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * File
  *
- * @ORM\Table(name="files")
- * @ORM\Entity
+ * @ORM\Table(
+ *  name="files",
+ *  indexes={@ORM\Index(name="hash_idx", columns={"hash"})}
+ * )
+ * @ORM\Entity(
+ *  repositoryClass="Sokil\FileStorageBundle\Repository\FileRepository"
+ * )
  */
 class File
 {
@@ -39,6 +44,7 @@ class File
      * @var string
      *
      * @ORM\Column(name="hash", type="string", length=32)
+     *
      */
     private $hash;
 

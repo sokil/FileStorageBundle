@@ -22,12 +22,24 @@ class FileWriterTest extends \PHPUnit_Framework_TestCase
 
     private function createEntityManagerMock()
     {
-        $entityManager = $this
+        // create file repository mock
+        $fileRepositoryMock = $this
+            ->getMockBuilder('\Sokil\FileStorageBundle\Repository\FileRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        // create entity manager mock
+        $entityManagerMock = $this
             ->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        return $entityManager;
+        $entityManagerMock
+            ->expects($this->any())
+            ->method('getRepository')
+            ->will($this->returnValue($fileRepositoryMock));
+
+        return $entityManagerMock;
     }
 
     private function createFilesystemMock()

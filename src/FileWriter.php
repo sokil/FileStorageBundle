@@ -45,9 +45,18 @@ class FileWriter
         $file = $fileBuilder->buildFileEntity();
         $file->setFilesystem($filesystemName);
 
-        // register uploaded file
-        $this->entityManager->persist($file);
-        $this->entityManager->flush();
+        // check if hash already exists
+        $persistedFile = $this->entityManager
+            ->getRepository('FileStorageBundle:File')
+            ->findOneByHsh($file->getHash());
+
+        if ($persistedFile) {
+            $file = $persistedFile;
+        } else {
+            // register uploaded file
+            $this->entityManager->persist($file);
+            $this->entityManager->flush();
+        }
 
         // get target filename
         if ($this->pathStrategy) {
