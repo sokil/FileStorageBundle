@@ -50,7 +50,7 @@ class FileWriter
             ->getRepository('FileStorageBundle:File')
             ->findOneByHsh($file->getHash());
 
-        if ($persistedFile) {
+        if ($persistedFile && $persistedFile->getSize() === $file->getSize()) {
             $file = $persistedFile;
         } else {
             // register uploaded file
