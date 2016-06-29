@@ -18,8 +18,6 @@ class FileStorage
      */
     protected $filesystemMap;
 
-    protected $pathStrategy;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         FilesystemMap $filesystemMap
