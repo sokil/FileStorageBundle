@@ -1,8 +1,8 @@
 <?php
 
-namespace Sokil\FileStorageBundle\Entity;
+namespace Sokil\FileStorageBundle\GaufretteAdapter\Internal\PathStrategy;
 
-use Sokil\FileStorageBundle\PathStrategy\ChunkPathStrategy;
+use Sokil\FileStorageBundle\Entity\File;
 
 class ChunkPathStrategyTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class ChunkPathStrategyTest extends \PHPUnit_Framework_TestCase
         $file = new File();
         $file->setName('example.txt');
 
-        $pathStrategy = new ChunkPathStrategy(2, 3, false);
+        $pathStrategy = new ChunkPathStrategy(['baseDir' => '/']);
 
         $path = $pathStrategy->getPath($file);
 
@@ -35,28 +35,28 @@ class ChunkPathStrategyTest extends \PHPUnit_Framework_TestCase
         $file = new File();
         $file->setName('example.txt');
 
-        $pathStrategy = new ChunkPathStrategy(2, 3, false);
+        $pathStrategy = new ChunkPathStrategy(['baseDir' => '/var']);
 
         $this->setPrivateProperty($file, 'id', 1); // 000001
-        $this->assertEquals('/001/000/1', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/001/000/1', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 12); // 000012
-        $this->assertEquals('/012/000/12', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/012/000/12', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 123); // 000123
-        $this->assertEquals('/123/000/123', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/123/000/123', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 1234); // 001234
-        $this->assertEquals('/234/001/1234', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/234/001/1234', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 12345); // 012345
-        $this->assertEquals('/345/012/12345', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/345/012/12345', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 123456); // 123456
-        $this->assertEquals('/456/123/123456', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/456/123/123456', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 1234567); // 1234567
-        $this->assertEquals('/567/234/1234567', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/567/234/1234567', $pathStrategy->getPath($file));
     }
 
     public function testGetPath_PreserveExtension()
@@ -64,27 +64,27 @@ class ChunkPathStrategyTest extends \PHPUnit_Framework_TestCase
         $file = new File();
         $file->setName('example.txt');
 
-        $pathStrategy = new ChunkPathStrategy(2, 3, true);
+        $pathStrategy = new ChunkPathStrategy(['baseDir' => '/var', 'preserveExtension' => true]);
 
         $this->setPrivateProperty($file, 'id', 1); // 000001
-        $this->assertEquals('/001/000/1.txt', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/001/000/1.txt', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 12); // 000012
-        $this->assertEquals('/012/000/12.txt', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/012/000/12.txt', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 123); // 000123
-        $this->assertEquals('/123/000/123.txt', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/123/000/123.txt', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 1234); // 001234
-        $this->assertEquals('/234/001/1234.txt', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/234/001/1234.txt', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 12345); // 012345
-        $this->assertEquals('/345/012/12345.txt', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/345/012/12345.txt', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 123456); // 123456
-        $this->assertEquals('/456/123/123456.txt', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/456/123/123456.txt', $pathStrategy->getPath($file));
 
         $this->setPrivateProperty($file, 'id', 1234567); // 1234567
-        $this->assertEquals('/567/234/1234567.txt', $pathStrategy->getPath($file));
+        $this->assertEquals('/var/567/234/1234567.txt', $pathStrategy->getPath($file));
     }
 }

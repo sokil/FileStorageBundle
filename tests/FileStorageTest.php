@@ -8,18 +8,8 @@ use Sokil\FileStorageBundle\DependencyInjection\FileStorageExtension;
 use Sokil\FileStorageBundle\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class FileWriterTest extends \PHPUnit_Framework_TestCase
+class FileStorageTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-
-    }
-
-    public function tearDown()
-    {
-
-    }
-
     private function createEntityManagerMock()
     {
         // create file repository mock
@@ -61,57 +51,22 @@ class FileWriterTest extends \PHPUnit_Framework_TestCase
         return $filesystemMap;
     }
 
-    private function createFileBuilderMock()
-    {
-        // prepare entity
-        $fileEntity = new File();
-        $fileEntity
-            ->setName('someFileName.txt')
-            ->setSize('42')
-            ->setHash('0123456789abcdef0123456789abcdef')
-            ->setCreatedAt(new \DateTime())
-            ->setMime('text/plain');
-
-        // set id to make file already saved
-        $fileEntityReflectionClass = new \ReflectionClass($fileEntity);
-        $fileEntityIdProperty = $fileEntityReflectionClass->getProperty('id');
-        $fileEntityIdProperty->setAccessible(true);
-        $fileEntityIdProperty->setValue($fileEntity, 987654321);
-
-        $fileBuilder = $this
-            ->getMockBuilder('Sokil\FileStorageBundle\FileBuilder\AbstractFileBuilder')
-            ->disableOriginalConstructor()
-            ->setMethods(['buildFileEntity', 'getContent'])
-            ->getMock();
-
-        $fileBuilder
-            ->expects($this->once())
-            ->method('buildFileEntity')
-            ->will($this->returnValue($fileEntity));
-
-        $fileBuilder
-            ->expects($this->once())
-            ->method('getContent')
-            ->will($this->returnValue(str_repeat('f', 42)));
-
-        return $fileBuilder;
-    }
-
     public function testWrite()
     {
         // get file writer
-        $fileWriter = new FileWriter(
+        $fileStorage = new FileStorage(
             $this->createEntityManagerMock(),
             $this->createFilesystemMap()
         );
 
-        // get file builder
-        $fileBuilder = $this->createFileBuilderMock();
+        // get file
+        $file = new File();
 
         // write uploaded
-        $file = $fileWriter->write(
-            $fileBuilder,
-            'someFilesystemName'
+        $fileStorage->write(
+            $file,
+            'someFilesystemName',
+            'someContent'
         );
 
         // tests

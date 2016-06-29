@@ -13,7 +13,7 @@ class FileRepository extends EntityRepository
      * @param $hash
      * @return null|object
      */
-    public function findOneByHsh($hash)
+    public function findOneByHash($hash)
     {
         $file = $this->findOneBy(array(
             'hash' => $hash,

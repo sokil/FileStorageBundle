@@ -1,24 +1,24 @@
 services:
-  file_storage.upload_handler_factory:
-    class: Sokil\Upload\HandlerFactory
 
-  file_storage.default_upload_handler:
-    class: Sokil\Upload\Handler
-    factory:
-      - '@file_storage.upload_handler_factory'
-      - createUploadHandler
-
-  file_storage.default_uploaded_file_builder:
-    class: Sokil\FileStorageBundle\FileBuilder\UploadedFileBuilder
-    arguments:
-      - '@file_storage.default_upload_handler'
-
-  file_storage.path_strategy.chunk:
-    class: Sokil\FileStorageBundle\PathStrategy\ChunkPathStrategy
-
-  file_storage.default_file_writer:
-    class: Sokil\FileStorageBundle\FileWriter
+  file_storage:
+    class: Sokil\FileStorageBundle\FileStorage
     arguments:
       - '@doctrine.orm.default_entity_manager'
       - '@knp_gaufrette.filesystem_map'
-      - '@file_storage.path_strategy.chunk'
+
+  file_storage.gaufrette.adapter.internal.pathStrategy.chunkPath:
+    class: Sokil\FileStorageBundle\GaufretteAdapter\Internal\PathStrategy\ChunkPathStrategy
+    arguments:
+      - {chunksNumber: 2, chunkSize: 3, preserveExtension: false}
+
+  file_storage.gaufrette.adapter.internal:
+    class: Sokil\FileStorageBundle\GaufretteAdapter\Internal
+    arguments:
+      - '@file_storage.gaufrette.adapter.internal.pathStrategy.chunkPath'
+    abstract: true
+    public: false
+
+  file_storage.knp_gaufrette.adapter.factory.internal:
+    class: Sokil\FileStorageBundle\DependencyInjection\GaufretteAdapterFactory\InternalAdapterFactory
+    tags:
+      - {name: gaufrette.adapter.factory}

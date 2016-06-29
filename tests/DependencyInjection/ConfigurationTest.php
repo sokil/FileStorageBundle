@@ -50,27 +50,29 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->containerBuilder = null;
     }
 
-    public function testGetHandlerFactory()
+    public function testGetFileStorage()
     {
-        $handlerFactory = $this->containerBuilder->get('file_storage.upload_handler_factory');
-        $this->assertInstanceOf('\Sokil\Upload\HandlerFactory', $handlerFactory);
+        $fileStorage = $this->containerBuilder->get('file_storage');
+        $this->assertInstanceOf('\Sokil\FileStorageBundle\FileStorage', $fileStorage);
     }
 
-    public function testGetHandler()
+    public function testGetInternalAdapterPathStrategyChunkPath()
     {
-        $handler = $this->containerBuilder->get('file_storage.upload_handler_factory')->createUploadHandler();
-        $this->assertInstanceOf('\Sokil\Upload\Handler', $handler);
+        $stretegy = $this->containerBuilder->get('file_storage.gaufrette.adapter.internal.pathStrategy.chunkPath');
+        $this->assertInstanceOf('\Sokil\FileStorageBundle\GaufretteAdapter\Internal\PathStrategy\ChunkPathStrategy', $stretegy);
     }
 
-    public function testGetDefultFileWriter()
+    /**
+     * @expectedException \Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException
+     */
+    public function testGetInternalAdapter()
     {
-        $fileWriter = $this->containerBuilder->get('file_storage.default_file_writer');
-        $this->assertInstanceOf('\Sokil\FileStorageBundle\FileWriter', $fileWriter);
+        $this->containerBuilder->get('file_storage.gaufrette.adapter.internal');
     }
 
-    public function testGetDefaultUploadedFileBuilder()
+    public function testGetInternalAdapterFactory()
     {
-        $fileBuilder = $this->containerBuilder->get('file_storage.default_uploaded_file_builder');
-        $this->assertInstanceOf('\Sokil\FileStorageBundle\FileBuilder\UploadedFileBuilder', $fileBuilder);
+        $factory = $this->containerBuilder->get('file_storage.knp_gaufrette.adapter.factory.internal');
+        $this->assertInstanceOf('\Sokil\FileStorageBundle\DependencyInjection\GaufretteAdapterFactory\InternalAdapterFactory', $factory);
     }
 }
