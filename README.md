@@ -77,7 +77,7 @@ $file
     ->setName('some.txt)
     ->setSize(4242)
     ->setCreatedAt(new \DateTime())
-    ->setMime('plain/text')
+    ->setMime('text/plain')
     ->setHash('some_hash_of_file_content');
             
 $this
