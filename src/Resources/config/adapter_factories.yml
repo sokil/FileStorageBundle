@@ -1,0 +1,5 @@
+services:
+  file_storage.knp_gaufrette.adapter.factory.internal:
+    class: Sokil\FileStorageBundle\DependencyInjection\GaufretteAdapterFactory\InternalAdapterFactory
+    tags:
+      - {name: gaufrette.adapter.factory}

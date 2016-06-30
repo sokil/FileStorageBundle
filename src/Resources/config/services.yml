@@ -17,8 +17,3 @@ services:
       - '@file_storage.gaufrette.adapter.internal.pathStrategy.chunkPath'
     abstract: true
     public: false
-
-  file_storage.knp_gaufrette.adapter.factory.internal:
-    class: Sokil\FileStorageBundle\DependencyInjection\GaufretteAdapterFactory\InternalAdapterFactory
-    tags:
-      - {name: gaufrette.adapter.factory}
