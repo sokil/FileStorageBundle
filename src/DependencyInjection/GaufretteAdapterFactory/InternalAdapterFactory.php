@@ -33,7 +33,8 @@ class InternalAdapterFactory implements AdapterFactoryInterface
 
         // define internal adapter
         $container->setDefinition($id, new DefinitionDecorator('file_storage.gaufrette.adapter.internal'))
-            ->replaceArgument(0, new Reference($pathStrategyServiceName));
+            ->replaceArgument(0, new Reference('file_storage.repository.file_repository'))
+            ->replaceArgument(1, new Reference($pathStrategyServiceName));
     }
 
     /**

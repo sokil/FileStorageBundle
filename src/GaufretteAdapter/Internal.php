@@ -2,6 +2,7 @@
 
 namespace Sokil\FileStorageBundle\GaufretteAdapter;
 
+use Sokil\FileStorageBundle\Repository\FileRepository;
 use Gaufrette\Util;
 use Gaufrette\Adapter;
 use Gaufrette\Adapter\ChecksumCalculator;
@@ -19,12 +20,24 @@ class Internal implements
     SizeCalculator,
     MimeTypeProvider
 {
+    private $repository;
 
     private $pathStrategy;
 
-    public function __construct(PathStrategyInterface $pathStrategy)
-    {
+    public function __construct(
+        FileRepository $repository,
+        PathStrategyInterface $pathStrategy
+    ) {
+        $this->repository = $repository;
         $this->pathStrategy = $pathStrategy;
+    }
+
+    private function getPathByKey($key)
+    {
+        $file = $this->repository->find($key);
+        $path = $this->pathStrategy->getPath($file);
+
+        return $path;
     }
 
     /**
@@ -32,7 +45,8 @@ class Internal implements
      */
     public function read($key)
     {
-
+        $path = $this->getPathByKey($key);
+        return file_get_contents($path);
     }
 
     /**
