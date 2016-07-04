@@ -58,7 +58,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
     public function testGetInternalAdapterPathStrategyChunkPath()
     {
-        $stretegy = $this->containerBuilder->get('file_storage.gaufrette.adapter.internal.pathStrategy.chunkPath');
+        $stretegy = $this->containerBuilder->get('file_storage.adapter.internal.pathstrategy.chunkpath');
         $this->assertInstanceOf('\Sokil\FileStorageBundle\GaufretteAdapter\Internal\PathStrategy\ChunkPathStrategy', $stretegy);
     }
 
@@ -68,11 +68,5 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function testGetInternalAdapter()
     {
         $this->containerBuilder->get('file_storage.gaufrette.adapter.internal');
-    }
-
-    public function testGetInternalAdapterFactory()
-    {
-        $factory = $this->containerBuilder->get('file_storage.knp_gaufrette.adapter.factory.internal');
-        $this->assertInstanceOf('\Sokil\FileStorageBundle\DependencyInjection\GaufretteAdapterFactory\InternalAdapterFactory', $factory);
     }
 }

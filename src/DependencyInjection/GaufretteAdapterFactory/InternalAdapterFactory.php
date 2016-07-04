@@ -21,7 +21,7 @@ class InternalAdapterFactory implements AdapterFactoryInterface
     public function create(ContainerBuilder $container, $id, array $config)
     {
         // define path strategy
-        $parentPathStrategyServiceName = 'file_storage.gaufrette.adapter.internal.pathStrategy.' . $config['pathStrategy']['name'];
+        $parentPathStrategyServiceName = 'file_storage.adapter.internal.pathstrategy.' . $config['pathStrategy']['name'];
         $pathStrategyServiceName = $parentPathStrategyServiceName . '.' . $id;
 
         $container
@@ -54,7 +54,12 @@ class InternalAdapterFactory implements AdapterFactoryInterface
                 ->arrayNode('pathStrategy')
                     ->children()
                         ->scalarNode('name')->end()
-                        ->arrayNode('options') ->end()
+                        ->arrayNode('options')
+                            ->useAttributeAsKey('key')
+                            ->prototype('scalar')
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
     }
 }

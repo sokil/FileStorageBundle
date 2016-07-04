@@ -6,7 +6,7 @@ services:
       - '@doctrine.orm.default_entity_manager'
       - '@knp_gaufrette.filesystem_map'
 
-  file_storage.gaufrette.adapter.internal.pathStrategy.chunkPath:
+  file_storage.adapter.internal.pathstrategy.chunkpath:
     class: Sokil\FileStorageBundle\GaufretteAdapter\Internal\PathStrategy\ChunkPathStrategy
     arguments:
       - {chunksNumber: 2, chunkSize: 3, preserveExtension: false}
@@ -14,6 +14,6 @@ services:
   file_storage.gaufrette.adapter.internal:
     class: Sokil\FileStorageBundle\GaufretteAdapter\Internal
     arguments:
-      - '@file_storage.gaufrette.adapter.internal.pathStrategy.chunkPath'
+      - '@file_storage.gaufrette.adapter.internal.pathstrategy.chunkpath'
     abstract: true
     public: false
