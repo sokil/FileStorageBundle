@@ -20,6 +20,9 @@ class Internal implements
     SizeCalculator,
     MimeTypeProvider
 {
+    /**
+     * @var FileRepository
+     */
     private $repository;
 
     private $pathStrategy;
@@ -32,9 +35,9 @@ class Internal implements
         $this->pathStrategy = $pathStrategy;
     }
 
-    private function getPathByKey($key)
+    private function getPathById($id)
     {
-        $file = $this->repository->find($key);
+        $file = $this->repository->find($id);
         $path = $this->pathStrategy->getPath($file);
 
         return $path;
@@ -43,18 +46,19 @@ class Internal implements
     /**
      * {@inheritDoc}
      */
-    public function read($key)
+    public function read($id)
     {
-        $path = $this->getPathByKey($key);
+        $path = $this->getPathById($id);
         return file_get_contents($path);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function write($key, $content)
+    public function write($id, $content)
     {
-
+        $path = $this->getPathById($id);
+        return file_put_contents($path);
     }
 
     /**
@@ -62,15 +66,17 @@ class Internal implements
      */
     public function rename($sourceKey, $targetKey)
     {
-
+        $sourcePath = $this->getPathById($sourceKey);
+        rename ($sourcePath, $targetKey);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function exists($key)
+    public function exists($id)
     {
-        return file_exists($this->computePath($key));
+        $path = $this->getPathById($id);
+        return file_exists($path);
     }
 
     /**
@@ -84,59 +90,61 @@ class Internal implements
     /**
      * {@inheritDoc}
      */
-    public function mtime($key)
+    public function mtime($id)
     {
-
+        return filemtime($this->getPathById($id));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function delete($key)
+    public function delete($id)
     {
-
+        $path = $this->getPathById($id);
+        unlink ($path);
     }
 
     /**
-     * @param  string  $key
+     * @param  string  $id
      * @return boolean
      */
-    public function isDirectory($key)
+    public function isDirectory($id)
     {
-
+        return false;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function createStream($key)
+    public function createStream($id)
     {
-
+        return new Stream\Local($this->getPathById($id));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function checksum($key)
+    public function checksum($id)
     {
-
+        $file = $this->repository->find($id);
+        return $file->getHash();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function size($key)
+    public function size($id)
     {
-
+        $file = $this->repository->find($id);
+        return $file->getSize();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function mimeType($key)
+    public function mimeType($id)
     {
-        $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
-
-        return $fileInfo->file($this->computePath($key));
+        $file = $this->repository->find($id);
+        return $file->getMime();
     }
 }

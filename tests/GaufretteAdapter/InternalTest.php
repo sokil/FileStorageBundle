@@ -124,7 +124,7 @@ class InternalTest extends \PHPUnit_Framework_TestCase
             ->getAdapter();
 
         $reflectedAdapter = new \ReflectionClass($adapter);
-        $reflectedMethod = $reflectedAdapter->getMethod('getPathByKey');
+        $reflectedMethod = $reflectedAdapter->getMethod('getPathById');
         $reflectedMethod->setAccessible(true);
         $path = $reflectedMethod->invoke($adapter, 42);
 

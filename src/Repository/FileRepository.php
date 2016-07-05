@@ -5,6 +5,9 @@ namespace Sokil\FileStorageBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Sokil\FileStorageBundle\Entity\File;
 
+/**
+ * @method File find($key) find File entity by id
+ */
 class FileRepository extends EntityRepository
 {
     /**
