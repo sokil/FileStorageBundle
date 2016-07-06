@@ -11,7 +11,7 @@
     "phpunit/phpunit": "3.7.*"
   },
   "require": {
-    "php": ">=5.4",
+    "php": ">=5.5",
     "knplabs/knp-gaufrette-bundle": "0.2.*",
     "doctrine/doctrine-bundle": "~1.2",
     "doctrine/orm": "~2.2,>=2.2.3,<2.5"
