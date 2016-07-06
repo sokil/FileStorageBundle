@@ -52,13 +52,16 @@ class FileStorage
             // register uploaded file
             $this->entityManager->persist($file);
             $this->entityManager->flush();
+        
+            // send file to filesystem    
+            $filesystem->write(
+                $file->getId(),
+                $content,
+                true
+            );
         }
-
-        $filesystem->write(
-            $file->getId(),
-            $content,
-            true
-        );
+        
+        return $persistedFile;
     }
 
     /**
