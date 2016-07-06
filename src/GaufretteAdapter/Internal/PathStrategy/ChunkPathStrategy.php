@@ -36,7 +36,7 @@ class ChunkPathStrategy implements PathStrategyInterface
         }
     }
 
-    private function getDir(File $file)
+    private function getDir(File $file, $absolute = true)
     {
         $chunksLength = $this->chunksNumber * $this->chunkSize;
 
@@ -50,12 +50,14 @@ class ChunkPathStrategy implements PathStrategyInterface
             $this->chunkSize
         );
 
-        $chunks[] = $this->baseDir;
+        if ($absolute) {
+            $chunks[] = $this->baseDir;
+        }
 
         return implode('/', array_reverse($chunks));
     }
 
-    public function getPath(File $file)
+    public function getPath(File $file, $absolute = true)
     {
         if (!$file->getId()) {
             throw new \RuntimeException('File must be persisted');
@@ -70,6 +72,6 @@ class ChunkPathStrategy implements PathStrategyInterface
             }
         }
 
-        return $this->getDir($file) . '/' . $basename;
+        return $this->getDir($file, $absolute) . '/' . $basename;
     }
 }

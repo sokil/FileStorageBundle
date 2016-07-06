@@ -36,10 +36,10 @@ class Internal implements
         $this->pathStrategy = $pathStrategy;
     }
 
-    public function getPath($id)
+    public function getPath($id, $absolute = true)
     {
         $file = $this->repository->find($id);
-        $path = $this->pathStrategy->getPath($file);
+        $path = $this->pathStrategy->getPath($file, $absolute);
 
         return $path;
     }

@@ -8,5 +8,5 @@ interface PathStrategyInterface
 {
     public function __construct(array $options = []);
 
-    public function getPath(File $file);
+    public function getPath(File $file, $absolute = true);
 }

@@ -4,5 +4,5 @@ namespace Sokil\FileStorageBundle\GaufretteAdapter;
 
 interface LocalFileInterface
 {
-    public function getPath($key);
+    public function getPath($key, $absolute = false);
 }
