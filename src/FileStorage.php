@@ -79,7 +79,7 @@ class FileStorage
     {
         $persistedFile = $this->entityManager
             ->getRepository('FileStorageBundle:File')
-            ->findOne($key);
+            ->find($key);
 
         if (!$persistedFile) {
             throw new FileNotFoundException('File not found');
