@@ -198,7 +198,7 @@ class File
      * @param \DateTime $dateTime
      * @return File
      */
-    public function setCreatedAt(\DateTime $dateTime)
+    public function setCreatedAt(\DateTimeInterface $dateTime)
     {
         $this->createdAt = $dateTime;
 
