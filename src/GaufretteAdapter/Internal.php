@@ -18,7 +18,8 @@ class Internal implements
     StreamFactory,
     ChecksumCalculator,
     SizeCalculator,
-    MimeTypeProvider
+    MimeTypeProvider,
+    LocalFileInterface
 {
     /**
      * @var FileRepository
@@ -35,7 +36,7 @@ class Internal implements
         $this->pathStrategy = $pathStrategy;
     }
 
-    private function getPathById($id)
+    public function getPath($id)
     {
         $file = $this->repository->find($id);
         $path = $this->pathStrategy->getPath($file);
@@ -48,7 +49,7 @@ class Internal implements
      */
     public function read($id)
     {
-        $path = $this->getPathById($id);
+        $path = $this->getPath($id);
         return file_get_contents($path);
     }
 
@@ -57,17 +58,16 @@ class Internal implements
      */
     public function write($id, $content)
     {
-        $path = $this->getPathById($id);
+        $path = $this->getPath($id);
         return file_put_contents($path);
     }
 
     /**
-     * {@inheritDoc}
+     * Rename not allowed because path depends from key in db
      */
     public function rename($sourceKey, $targetKey)
     {
-        $sourcePath = $this->getPathById($sourceKey);
-        rename ($sourcePath, $targetKey);
+        return false;
     }
 
     /**
@@ -75,16 +75,13 @@ class Internal implements
      */
     public function exists($id)
     {
-        $path = $this->getPathById($id);
+        $path = $this->getPath($id);
         return file_exists($path);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function keys()
     {
-
+        return [];
     }
 
     /**
@@ -92,7 +89,7 @@ class Internal implements
      */
     public function mtime($id)
     {
-        return filemtime($this->getPathById($id));
+        return filemtime($this->getPath($id));
     }
 
     /**
@@ -100,7 +97,7 @@ class Internal implements
      */
     public function delete($id)
     {
-        $path = $this->getPathById($id);
+        $path = $this->getPath($id);
         unlink ($path);
     }
 
@@ -118,7 +115,7 @@ class Internal implements
      */
     public function createStream($id)
     {
-        return new Stream\Local($this->getPathById($id));
+        return new Stream\Local($this->getPath($id));
     }
 
     /**

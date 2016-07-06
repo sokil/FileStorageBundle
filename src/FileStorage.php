@@ -5,6 +5,8 @@ namespace Sokil\FileStorageBundle;
 use Knp\Bundle\GaufretteBundle\FilesystemMap;
 use Doctrine\ORM\EntityManagerInterface;
 use Sokil\FileStorageBundle\Entity\File;
+use Sokil\FileStorageBundle\Exception\FileAlreadyExistsException;
+use Sokil\FileStorageBundle\Exception\FileNotFoundException;
 
 class FileStorage
 {
@@ -35,6 +37,10 @@ class FileStorage
         $filesystemName,
         $content
     ) {
+        if ($file->getId()) {
+            throw new FileAlreadyExistsException('File already persisted to database with id ' . $file->getId());
+        }
+
         // get target filesystem
         $filesystem = $this->filesystemMap->get($filesystemName);
 
@@ -61,7 +67,7 @@ class FileStorage
             );
         }
         
-        return $persistedFile;
+        return $file;
     }
 
     /**
@@ -76,7 +82,7 @@ class FileStorage
             ->findOne($key);
 
         if (!$persistedFile) {
-            throw new \Exception('File not found');
+            throw new FileNotFoundException('File not found');
         }
 
         return $persistedFile;

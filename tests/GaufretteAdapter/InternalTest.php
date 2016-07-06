@@ -123,11 +123,6 @@ class InternalTest extends \PHPUnit_Framework_TestCase
             ->get('acme_internal')
             ->getAdapter();
 
-        $reflectedAdapter = new \ReflectionClass($adapter);
-        $reflectedMethod = $reflectedAdapter->getMethod('getPathById');
-        $reflectedMethod->setAccessible(true);
-        $path = $reflectedMethod->invoke($adapter, 42);
-
-        $this->assertSame('/tmp/042/000/42', $path);
+        $this->assertSame('/tmp/042/000/42', $adapter->getPath(42));
     }
 }
