@@ -116,7 +116,7 @@ class InternalTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetPathByKey()
+    public function testGetPath()
     {
         $adapter = $this->createContainer()
             ->get('knp_gaufrette.filesystem_map')
@@ -124,5 +124,19 @@ class InternalTest extends \PHPUnit_Framework_TestCase
             ->getAdapter();
 
         $this->assertSame('/tmp/042/000/42', $adapter->getPath(42));
+    }
+
+    public function testWrite()
+    {
+        $adapter = $this->createContainer()
+            ->get('knp_gaufrette.filesystem_map')
+            ->get('acme_internal')
+            ->getAdapter();
+
+        $adapter->write(42, 'hello');
+
+        $path = '/tmp/042/000/42';
+        $this->assertFileExists($path);
+        $this->assertSame('hello', file_get_contents('/tmp/042/000/42'));
     }
 }
