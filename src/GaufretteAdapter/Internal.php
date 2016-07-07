@@ -59,7 +59,7 @@ class Internal implements
     public function write($id, $content)
     {
         $path = $this->getPath($id);
-        return file_put_contents($path);
+        return file_put_contents($path, $content);
     }
 
     /**
