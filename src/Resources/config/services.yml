@@ -7,11 +7,10 @@ services:
       - '@knp_gaufrette.filesystem_map'
 
   file_storage.repository.file_repository:
-    class: Sokil\FileStorageBundle\Repository\FileRepositoy
-    factory_service: doctrine.orm.default_entity_manager
-    factory_method: getRepository
+    class: Sokil\FileStorageBundle\Repository\FileRepository
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
     arguments:
-      - Sokil\FileStorageBundle\Entity\File
+      - 'Sokil\FileStorageBundle\Entity\File'
 
   file_storage.adapter.internal.pathstrategy.chunkpath:
     class: Sokil\FileStorageBundle\GaufretteAdapter\Internal\PathStrategy\ChunkPathStrategy

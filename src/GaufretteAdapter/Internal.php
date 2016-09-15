@@ -3,14 +3,12 @@
 namespace Sokil\FileStorageBundle\GaufretteAdapter;
 
 use Sokil\FileStorageBundle\Repository\FileRepository;
-use Gaufrette\Util;
 use Gaufrette\Adapter;
 use Gaufrette\Adapter\ChecksumCalculator;
 use Gaufrette\Adapter\SizeCalculator;
 use Gaufrette\Adapter\MimeTypeProvider;
 use Gaufrette\Adapter\StreamFactory;
 use Gaufrette\Stream;
-use Gaufrette\Exception;
 use Sokil\FileStorageBundle\GaufretteAdapter\Internal\PathStrategy\PathStrategyInterface;
 
 class Internal implements
