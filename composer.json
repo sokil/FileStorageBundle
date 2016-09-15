@@ -14,7 +14,7 @@
     "php": ">=5.5",
     "knplabs/knp-gaufrette-bundle": "0.2.*",
     "doctrine/doctrine-bundle": "~1.2",
-    "doctrine/orm": "~2.2,>=2.2.3,<2.5"
+    "doctrine/orm": "~2.2,>=2.2.3"
   },
   "suggest": {
     "sokil/php-upload": "0.*"
