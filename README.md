@@ -4,6 +4,23 @@ Working with different filesystems, managing file metadata in Doctrine ORM
 
 [![Build Status](https://travis-ci.org/sokil/FileStorageBundle.svg?branch=master)](https://travis-ci.org/sokil/FileStorageBundle)
 
+## Installation
+
+Add bundle to AppKernel:
+```php
+<?php
+
+class AppKernel extends Kernel
+{
+    public function registerBundles()
+    {
+        $bundles = array(
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new Sokil\FileStorageBundle\FileStorageBundle(),
+        );
+    }
+}
+
 ## Configuration
 
 * Read about Gaufrette at https://github.com/KnpLabs/Gaufrette.
