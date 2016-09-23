@@ -27,10 +27,7 @@ class AppKernel extends Kernel
 * Read about Gaufrette at https://github.com/KnpLabs/Gaufrette.
 * Read abount configuring Gaufrette filesystems in Symfony at https://github.com/KnpLabs/KnpGaufretteBundle.
 
-## See also
-* See how to easy handle uploaded files at https://github.com/sokil/php-upload
-
-## Configuration of supported filesystems
+### Configuration of supported filesystems
 This bundle uses gaufrette as filesystem abstraction, so you need to configure filesystem in app config:
 ```yaml
 knp_gaufrette:
@@ -82,7 +79,7 @@ $attachmentFilesystem = $this
 
 ```
 
-### Move local file to filesystem
+## Move local file to filesystem
 
 This bundle usefull for moving local files into some external filesystems and add record to database about file.
 First we need to create some file entity. File entity holds useful metadata about stored file.
@@ -109,3 +106,5 @@ $this
 $fileId = $file->getId(); // now you have id of file
 ```
 
+## See also
+* See how to easy handle uploaded files at https://github.com/sokil/php-upload
