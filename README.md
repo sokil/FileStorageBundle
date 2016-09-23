@@ -4,6 +4,8 @@ Working with different filesystems, managing file metadata in Doctrine ORM
 
 [![Build Status](https://travis-ci.org/sokil/FileStorageBundle.svg?branch=master)](https://travis-ci.org/sokil/FileStorageBundle)
 
+<br>
+<br>
 ## Installation
 
 Add bundle to AppKernel:
@@ -22,6 +24,8 @@ class AppKernel extends Kernel
 }
 ```
 
+<br>
+<br>
 ## Configuration
 
 * Read about Gaufrette at https://github.com/KnpLabs/Gaufrette.
@@ -79,6 +83,8 @@ $attachmentFilesystem = $this
 
 ```
 
+<br>
+<br>
 ## Move local file to filesystem
 
 This bundle usefull for moving local files into some external filesystems and add record to database about file.
@@ -106,5 +112,7 @@ $this
 $fileId = $file->getId(); // now you have id of file
 ```
 
+<br>
+<br>
 ## See also
 * See how to easy handle uploaded files at https://github.com/sokil/php-upload
