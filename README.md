@@ -4,8 +4,6 @@ Working with different filesystems, managing file metadata in Doctrine ORM
 
 [![Build Status](https://travis-ci.org/sokil/FileStorageBundle.svg?branch=master)](https://travis-ci.org/sokil/FileStorageBundle)
 
-<br>
-<br>
 ## Installation
 
 Add bundle to AppKernel:
@@ -95,7 +93,7 @@ First we need to create some file entity. File entity holds useful metadata abou
 
 $file = new File();
 $file
-    ->setName('some.txt)
+    ->setName('some.txt')
     ->setSize(4242)
     ->setCreatedAt(new \DateTime())
     ->setMime('text/plain')
