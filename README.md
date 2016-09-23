@@ -20,6 +20,7 @@ class AppKernel extends Kernel
         );
     }
 }
+```
 
 ## Configuration
 
