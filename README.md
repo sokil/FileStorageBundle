@@ -1,6 +1,6 @@
 # FileStorageBundle
 
-Working with different filesystems, managing file metadata in Doctrine ORM
+Working with different filesystems, managing file metadata in Doctrine ORM. Storing metadata allows to prevent loading same file twice by checking file hash.
 
 [![Build Status](https://travis-ci.org/sokil/FileStorageBundle.svg?branch=master)](https://travis-ci.org/sokil/FileStorageBundle)
 
