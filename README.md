@@ -6,6 +6,11 @@ Working with different filesystems, managing file metadata in Doctrine ORM. Stor
 
 ## Installation
 
+Add composer dependency:
+```
+composer require sokil/file-storage-bundle
+```
+
 Add bundle to AppKernel:
 ```php
 <?php
