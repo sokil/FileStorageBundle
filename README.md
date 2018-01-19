@@ -29,6 +29,7 @@ class AppKernel extends Kernel
 
 <br>
 <br>
+
 ## Configuration
 
 * Read about Gaufrette at https://github.com/KnpLabs/Gaufrette.
